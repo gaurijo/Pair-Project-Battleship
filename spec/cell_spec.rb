@@ -20,8 +20,9 @@ RSpec.describe Cell do
 
   it "can have a ship placed in itself" do
     cruiser = Ship.new("Cruiser", 3)
+    cell = Cell.new("B4")
     cell.place_ship(cruiser)
-    expect(cell.ship).to eq(@ship)
+    expect(cell.ship).to eq(cruiser)
     expect(cell.empty?).to eq(false)
 
   end
