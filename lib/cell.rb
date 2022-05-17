@@ -6,4 +6,13 @@ class Cell
     @ship = ship
   end
 
+  def empty?
+    if @ship == nil
+      true
+    else
+      false
+    end
+
+  end
+
 end
