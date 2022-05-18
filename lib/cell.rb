@@ -5,7 +5,7 @@ class Cell
 
   def initialize(coordinate)
     @coordinate = coordinate
-    @ship = ship
+    @ship = nil
     @fired_upon = false
   end
 
@@ -25,5 +25,10 @@ class Cell
     @fired_upon
   end
 
-
+  def fire_upon
+    @fired_upon = true
+    if @ship
+      @ship.health -= 1
+    end
+  end
 end
