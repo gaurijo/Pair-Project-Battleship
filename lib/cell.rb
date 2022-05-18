@@ -31,4 +31,23 @@ class Cell
       @ship.health -= 1
     end
   end
-end
+
+  def render(ship_on_cell = false)
+    if fired_upon? == false
+      if ship_on_cell == true && empty? == false
+      "S"
+      elsif ship_on_cell == true && empty? == true
+      "."
+      end
+    elsif fired_upon? == true && empty? == true
+      "M"
+    elsif fired_upon? == true && empty? == false
+      if @ship.health == 0
+        "X"
+      else
+        "H"
+
+      end
+      end
+    end
+  end
