@@ -12,11 +12,9 @@ class Cell
     else
       false
     end
-
   end
 
-  def place_ship(cruiser)
-    @ship = cruiser 
+  def place_ship(ship)
+    @ship = ship
   end
-
 end
