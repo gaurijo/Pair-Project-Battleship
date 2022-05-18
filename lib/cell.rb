@@ -34,6 +34,7 @@ class Cell
     end
   end
 
+<<<<<<< HEAD
 
 
   def render(ship_on_cell = false)
@@ -76,3 +77,21 @@ class Cell
   #     @ship = ship
   #   end
   # end
+=======
+  def render(ship_on_cell = false)
+    if ship_on_cell == true && fired_upon? == false
+      "S"
+    elsif fired_upon? == false && empty?
+      "."
+    elsif fired_upon? == true && empty?
+      "M"
+    elsif fired_upon? == true && !empty?
+      if ship.health == 0
+        "X"
+      else
+        "H"
+      end
+    end
+  end
+end
+>>>>>>> main
