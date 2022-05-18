@@ -34,6 +34,8 @@ class Cell
     end
   end
 
+
+
   def render(ship_on_cell = false)
     if fired_upon? == false
       if ship_on_cell == true && empty? == false

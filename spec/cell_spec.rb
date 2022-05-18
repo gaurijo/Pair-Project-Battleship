@@ -2,12 +2,12 @@ require './lib/ship'
 require './lib/cell'
 
 RSpec.describe Cell do
-  it "exists" do
+  xit "exists" do
     cell = Cell.new("B4")
     expect(cell).to be_a(Cell)
   end
 
-  it "has attributes" do
+  xit "has attributes" do
     cell = Cell.new("B4")
     expect(cell.coordinate).to eq("B4")
     expect(cell.ship).to eq(nil)
@@ -26,7 +26,7 @@ RSpec.describe Cell do
     expect(cell.empty?).to eq(false)
   end
 
-  it "can tell if a ship has been fired upon" do
+  xit "can tell if a ship has been fired upon" do
     cruiser = Ship.new("Cruiser", 3)
     cell = Cell.new("B4")
     cell.place_ship(cruiser)
@@ -36,7 +36,7 @@ RSpec.describe Cell do
     expect(cell.fired_upon?).to eq true
   end
 
-  it "can return a string representation of the cell when the board is printed" do
+  xit "can return a string representation of the cell when the board is printed" do
     cell_1 = Cell.new("B4")
     cell_2 = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
