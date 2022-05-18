@@ -27,10 +27,12 @@ RSpec.describe Cell do
   end
 
   it "can tell if a ship has been fired upon" do
-    @cell.place_ship(@cruiser)
-    expect(@cell.fired_upon?).to eq false
-    @cell.fire_upon
-    expect(@cell.ship.health).to eq 2
-    expect(@cell.fired_upon?).to eq true
+    cruiser = Ship.new("Cruiser", 3)
+    cell = Cell.new("B4")
+    cell.place_ship(cruiser)
+    expect(cell.fired_upon?).to eq false
+    cell.fire_upon
+    expect(cell.ship.health).to eq 2
+    expect(cell.fired_upon?).to eq true
   end
 end
