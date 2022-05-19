@@ -40,5 +40,24 @@ RSpec.describe Board do
     board.cells["A2", "A3", "A4"]
     expect(board.valid_coordinate?.count).to eq(3)
     expect(board.valid_placement?(submarine,["A2", "A3", "A4"])).to eq(false)
+    board.cells["A1", "A2", "A4"]
+    expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
+    board.cells["A1", "C1"]
+    expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
+    board.cells["A3", "A2", "A1"]
+    expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
+    board.cells["C1", "B1"]
+    expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+    board.cells["A1", "B2", "C3"]
+    expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
+    board.cells["C2", "D3"]
+    expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
+    board.cells[]
+
+
   end
+
+
+
+
 end
