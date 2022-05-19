@@ -1,5 +1,3 @@
-
-
 class Cell
   attr_reader :coordinate,
               :ship,
@@ -33,8 +31,6 @@ class Cell
       @ship.health -= 1
     end
   end
-
-
 
   def render(ship_on_cell = false)
     if ship_on_cell == true && fired_upon? == false
