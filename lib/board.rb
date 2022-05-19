@@ -1,4 +1,3 @@
-
 require './lib/cell'
 
 class Board
