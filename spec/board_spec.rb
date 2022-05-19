@@ -30,7 +30,7 @@ RSpec.describe Board do
     expect(board.valid_coordinate?).to eq(false)
   end
 
-  it "can tell if the placement of the ship is valid" do
+  it "can tell if the number of coordinates is equal to the length of ship" do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -40,6 +40,12 @@ RSpec.describe Board do
     board.cells["A2", "A3", "A4"]
     expect(board.valid_coordinate?.count).to eq(3)
     expect(board.valid_placement?(submarine,["A2", "A3", "A4"])).to eq(false)
+  end
+
+  it "can make sure the coordinates are consecutive order" do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
     board.cells["A1", "A2", "A4"]
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
     board.cells["A1", "C1"]
@@ -48,11 +54,18 @@ RSpec.describe Board do
     expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
     board.cells["C1", "B1"]
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+
     board.cells["A1", "B2", "C3"]
     expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
     board.cells["C2", "D3"]
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
-    board.cells[]
+
+    board.cells["A1", "A2"]
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+    board.cells["B1", "C1", "D1"]
+    expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+
+
 
 
   end
