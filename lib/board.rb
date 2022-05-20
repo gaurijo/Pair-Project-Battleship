@@ -24,18 +24,37 @@ class Board
     }
   end
 
-  def valid_coordinate?(coordinate)
-    @cells.keys.include?(coordinate)
+  def valid_coordinate?(coordinates)
+    @cells.keys.include?(coordinates)
   end
 
   def validates_length(ship, coordinates)
     ship.length == coordinates.length
   end
 
-
   def valid_placement?(ship, coordinates)
-    validates_length(ship, coordinates)
+    @cells.keys.include?(coordinates)
+  ###
+  #use .slice(4) to get an array of each coordinate
+  #ex "A1","A2","A3","A4"
+    @cells.keys.each_slice(4).to_a
+  #ARRAY ["A1","A2","A3","A4"], ["B1","B2"...ETC]
+    @cells.keys.each_slice(4).to_a.first
 
-
+  #Use .first to get an array of JUST the "A"s
+  #["A1","A2","A3","A4"]
+  if ship.name == "Submarine"
+    @cells.each_cons(2).to_a
+    @cells.each_cons(2).to_a.any?(coordinates)
+  else ship.name == "Cruiser"
+    @cells.each_cons(3).to_a
+    @cells.each_cons(3).to_a.any?(coordinates)
   end
+  #Use .each_cons(2) to get the As array into
+  #consecutive pairs in groups of 2.
+  #[["A1,A2"], ["A2, A3"], ["A3, A4"]]
+end
+  #Use .any?([coordinates]) to see if ANY of the
+  #consecutive pair groups are equal to the coordinates
+  #passed in
 end
