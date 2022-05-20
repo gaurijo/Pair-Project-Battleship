@@ -1,6 +1,7 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
+require 'pry'
 
 RSpec.describe Board do
 
@@ -33,10 +34,9 @@ RSpec.describe Board do
 
     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq false
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq false
-    expect(board.valid_placement?(submarine, ["A2", "A3"])).to eq true
   end
 
-  xit "can make sure the coordinates are in consecutive order" do
+  it "can make sure the coordinates are in consecutive order" do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -47,7 +47,7 @@ RSpec.describe Board do
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
   end
 
-  xit "can make sure coordinates are not diagonal" do
+  it "can make sure coordinates are not diagonal" do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -55,7 +55,7 @@ RSpec.describe Board do
     expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
   end
 
-  xit "can tell if the placement of the ship is valid" do
+ it "can tell if the placement of the ship is valid" do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
