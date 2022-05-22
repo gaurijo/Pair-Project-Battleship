@@ -28,33 +28,6 @@ class Board
     @cells.keys.include?(coordinates)
   end
 
-  # def valid_placement?(ship, coordinates)
-  #   @cells.keys.include?(coordinates)
-  # ###
-  # #use .slice(4) to get an array of each coordinate
-  # #ex "A1","A2","A3","A4"
-  #   @cells.keys.each_slice(4).to_a
-  # #ARRAY ["A1","A2","A3","A4"], ["B1","B2"...ETC]
-  #   @cells.keys.each_slice(4).to_a.first
-  #
-  # #Use .first to get an array of JUST the "A"s
-  # #["A1","A2","A3","A4"]
-  #   if ship.name == "Submarine"
-  #     @cells.each_cons(2).to_a
-  #     @cells.each_cons(2).to_a.any?(coordinates)
-  #   else ship.name == "Cruiser"
-  #     @cells.each_cons(3).to_a
-  #     @cells.each_cons(3).to_a.any?(coordinates)
-  #
-  #   end
-  # #Use .each_cons(2) to get the As array into
-  # #consecutive pairs in groups of 2.
-  # #[["A1,A2"], ["A2, A3"], ["A3, A4"]]
-  # end
-  #Use .any?([coordinates]) to see if ANY of the
-  #consecutive pair groups are equal to the coordinates
-  #passed in
-
   def valid_placement?(ship, coordinates)
     if ship.length != coordinates.length
       return false
@@ -90,10 +63,10 @@ class Board
     end
   end
 
-  def render(show_hidden_ships = false)
-    puts "  1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}"+
-    "\nB #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render}"+
-    "\nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}"+
-    "\nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}"
+  def render(ship_on_cell = false)
+    puts "  1 2 3 4 \nA #{@cells["A1"].render(ship_on_cell)} #{@cells["A2"].render(ship_on_cell)} #{@cells["A3"].render(ship_on_cell)} #{@cells["A4"].render(ship_on_cell)}"+
+    "\nB #{@cells["B1"].render(ship_on_cell)} #{@cells["B2"].render(ship_on_cell)} #{@cells["B3"].render(ship_on_cell)} #{@cells["B4"].render(ship_on_cell)}"+
+    "\nC #{@cells["C1"].render(ship_on_cell)} #{@cells["C2"].render(ship_on_cell)} #{@cells["C3"].render(ship_on_cell)} #{@cells["C4"].render(ship_on_cell)}"+
+    "\nD #{@cells["D1"].render(ship_on_cell)} #{@cells["D2"].render(ship_on_cell)} #{@cells["D3"].render(ship_on_cell)} #{@cells["D4"].render(ship_on_cell)}"
   end
 end
