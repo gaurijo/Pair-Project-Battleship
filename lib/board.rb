@@ -29,35 +29,47 @@ class Board
     @cells.keys.include?(coordinates)
   end
 
-  def validates_length(ship, coordinates)
-    ship.length == coordinates.length
-  end
-
   def valid_placement?(ship, coordinates)
-    @cells.keys.include?(coordinates)
-  ###
-  #use .slice(4) to get an array of each coordinate
-  #ex "A1","A2","A3","A4"
-    @cells.keys.each_slice(4).to_a
-  #ARRAY ["A1","A2","A3","A4"], ["B1","B2"...ETC]
-    @cells.keys.each_slice(4).to_a.first
-
-  #Use .first to get an array of JUST the "A"s
-  #["A1","A2","A3","A4"]
-  if ship.name == "Submarine"
-    @cells.each_cons(2).to_a
-    @cells.each_cons(2).to_a.any?(coordinates)
-  else ship.name == "Cruiser"
-    @cells.each_cons(3).to_a
-    @cells.each_cons(3).to_a.any?(coordinates)
+    if ship.length != coordinates.length
+      return false
+    end
+    letters = coordinates.map do |coordinate|
+      if @cells[coordinate].empty? == false
+        return false
+      end
+      coordinate[0]
+    end
+    numbers = coordinates.map do |coordinate|
+        coordinate[1]
+    end
+    if letters.uniq.count != 1 && numbers.uniq.count != 1
+      return false
+    end
+    if letters.uniq.count == 1
+      #verifies we're all on a's, b's, c's, d's
+      return numbers.each_cons(2).all? { |x, y| y.to_i == x.to_i + 1 }
+      #chekcing the #s, x = the 1st position, y = the 2nd pos)
+    end
+    if numbers.uniq.count == 1
+      #verify we're all on 1's, 2's, 3's, 4's
+      return letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
+    end
   end
-  #Use .each_cons(2) to get the As array into
-  #consecutive pairs in groups of 2.
-  #[["A1,A2"], ["A2, A3"], ["A3, A4"]]
-end
-  #Use .any?([coordinates]) to see if ANY of the
-  #consecutive pair groups are equal to the coordinates
-  #passed in
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map do |coordinate|
+        @cells[coordinate].ship = ship
+      end
+    end
+  end
+
+  def render(ship_on_cell = false)
+    puts "  1 2 3 4 \nA #{@cells["A1"].render(ship_on_cell)} #{@cells["A2"].render(ship_on_cell)} #{@cells["A3"].render(ship_on_cell)} #{@cells["A4"].render(ship_on_cell)}"+
+    "\nB #{@cells["B1"].render(ship_on_cell)} #{@cells["B2"].render(ship_on_cell)} #{@cells["B3"].render(ship_on_cell)} #{@cells["B4"].render(ship_on_cell)}"+
+    "\nC #{@cells["C1"].render(ship_on_cell)} #{@cells["C2"].render(ship_on_cell)} #{@cells["C3"].render(ship_on_cell)} #{@cells["C4"].render(ship_on_cell)}"+
+    "\nD #{@cells["D1"].render(ship_on_cell)} #{@cells["D2"].render(ship_on_cell)} #{@cells["D3"].render(ship_on_cell)} #{@cells["D4"].render(ship_on_cell)}"
+  end
 end
 
 
