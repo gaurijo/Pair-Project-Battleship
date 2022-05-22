@@ -81,4 +81,12 @@ class Board
       return letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
     end
   end
+
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map do |coordinate|
+        @cells[coordinate].ship = ship
+      end
+    end
+  end
 end
