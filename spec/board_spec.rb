@@ -1,7 +1,6 @@
 require './lib/ship'
 require './lib/cell'
 require './lib/board'
-require 'pry'
 
 RSpec.describe Board do
   before :each do
@@ -70,6 +69,6 @@ RSpec.describe Board do
 
   it "can render the board" do
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    # expect(board.render).to eq ("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    # expect(@board.render).to eq ("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")    
   end
 end
