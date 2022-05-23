@@ -48,7 +48,16 @@ class Game
     @player_board.render(ship_on_cell = true)
   end
 
-    def player_turn
+  def computer_turn
+    # until player's ships are sunk do this:
+    return @player_board.render(ship_on_cell = false)
+    @computer_board.place(@submarine_computer, ["B1","B2"])
+    if @player_board.valid_coordinate?(coordinates)
+    end
+  end
+
+
+  def player_turn
     puts "Enter the coordinate for your shot:"
     player_turn_input = gets.chomp.upcase
     puts "~~~~~COMPUTER BOARD~~~~~"
@@ -56,7 +65,9 @@ class Game
     puts "~~~~~PLAYER BOARD~~~~~"
     @player_board.render(ship_on_cell = true)
     if @computer_board.valid_coordinate?(player_turn_input)
-
+    end
+  end
+end
 
 
 
@@ -65,9 +76,7 @@ class Game
     # computer_turn_input = ["C1"]
       # if @player_board.valid_coordinate?(computer_turn_input)
     # require 'pry'; binding.pry
-        end
-      end
-    end
+
 
 
 
@@ -86,5 +95,5 @@ class Game
 
 battleship = Game.new
 battleship.start_menu
-battleship.turn
->>>>>>> main
+battleship.player_turn
+# battleship.computer_turn
