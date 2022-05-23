@@ -34,10 +34,8 @@ class Cell
   end
 
   def render(ship_on_cell = false)
-    if ship_on_cell == true && fired_upon? == false
+    if ship_on_cell == true && fired_upon? == false && !empty?
       "S"
-    elsif fired_upon? == false && empty?
-      "."
     elsif fired_upon? == true && empty?
       "M"
     elsif fired_upon? == true && !empty?
@@ -46,6 +44,8 @@ class Cell
       else
         "H"
       end
+    elsif fired_upon? == false && empty? || !empty?
+      "."
     end
   end
 end
