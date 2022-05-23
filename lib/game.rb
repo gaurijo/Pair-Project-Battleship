@@ -13,6 +13,7 @@ class Game
     @cruiser_computer = Ship.new("Cruiser", 3)
     @submarine_computer = Ship.new("Submarine", 2)
     @cruiser_player = Ship.new("Cruiser", 3)
+    @submarine_player = Ship.new("Submarine", 2)
     # @computer_player = Player.new(:computer)
   end
 
@@ -49,25 +50,29 @@ class Game
   end
 
   def computer_turn
-    # until player's ships are sunk do this:
-    return @player_board.render(ship_on_cell = false)
-    @computer_board.place(@submarine_computer, ["B1","B2"])
-    if @player_board.valid_coordinate?(coordinates)
+      if @player_board.valid_coordinate?(coordinates)
+        @player_board.cells[coordinates].fire_upon
+      puts "~~~~~PLAYER BOARD~~~~~"
+      return @player_board.render
+      puts "~~~~~COMPUTER BOARD~~~~~"
+      @computer_board.render(ship_on_cell = true)
+      end
     end
-  end
 
 
   def player_turn
     puts "Enter the coordinate for your shot:"
     player_turn_input = gets.chomp.upcase
+    if @computer_board.valid_coordinate?(player_turn_input)
+      @computer_board.cells[player_turn_input].fire_upon
     puts "~~~~~COMPUTER BOARD~~~~~"
-    return @computer_board.render(ship_on_cell = false)
+    return @computer_board.render
     puts "~~~~~PLAYER BOARD~~~~~"
     @player_board.render(ship_on_cell = true)
-    if @computer_board.valid_coordinate?(player_turn_input)
     end
   end
 end
+
 
 
 
