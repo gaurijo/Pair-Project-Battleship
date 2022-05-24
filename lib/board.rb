@@ -70,3 +70,5 @@ class Board
     "\nD #{@cells["D1"].render(ship_on_cell)} #{@cells["D2"].render(ship_on_cell)} #{@cells["D3"].render(ship_on_cell)} #{@cells["D4"].render(ship_on_cell)}"
   end
 end
+
+  
