@@ -2,7 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/game'
-# require './lib/player'
 
 RSpec.describe Game do
   before :each do
@@ -10,7 +9,6 @@ RSpec.describe Game do
     @board = Board.new
     @computer_board = Board.new
     @player_board = Board.new
-
   end
 
   it "exists" do
