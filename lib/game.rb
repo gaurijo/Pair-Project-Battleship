@@ -1,5 +1,3 @@
-
-
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
@@ -48,35 +46,45 @@ class Game
     @computer_board.place(@cruiser_computer, cells)
     cells = random_computer_placement(@submarine_computer)
     @computer_board.place(@submarine_computer, cells)
+
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
 
     @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Cruiser (3 spaces):"
+    player_turn = false
+    until player_turn == true
     player_placement = gets.chomp.upcase.split(" ")
-    @player_board.place(@cruiser_player, player_placement)
-    until @player_board.valid_placement?(@cruiser_player, player_placement) == true do
-    puts "Those are invalid coordinates. Please try again:"
-    player_placement = gets.chomp.upcase.split(" ")
+      if @player_board.valid_placement?(@cruiser_player, player_placement) == false
+      puts "Those are invalid coordinates. Please try again:"
+    redo
+      else @player_board.place(@cruiser_player, player_placement)
+      player_turn = true
+      end
     end
-
-
     @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Submarine (2 spaces):"
+    player_turn = false
+    until player_turn == true
     player_placement = gets.chomp.upcase.split(" ")
-    # player_placement.split(" ")
-    @player_board.place(@submarine_player, player_placement)
-    puts "~~~~~PLAYER BOARD~~~~~"
-    @player_board.render(ship_on_cell = true)
+      if @player_board.valid_placement?(@submarine_player, player_placement) == false
+      puts "Those are invalid coordinates. Please try again:"
+    redo
+      else @player_board.place(@submarine_player, player_placement)
+      player_turn = true
+      @player_board.place(@cruiser_player, player_placement)
+      end
+    end
   end
+
+
 
   def player_turn
     puts "Enter the coordinate for your shot:"
     player_turn_input = gets.chomp.upcase
     if @computer_board.valid_coordinate?(player_turn_input)
       @computer_board.cells[player_turn_input].fire_upon
-
       puts "~~~~~COMPUTER BOARD~~~~~"
       @computer_board.render
       puts "~~~~~PLAYER BOARD~~~~~"
@@ -85,22 +93,16 @@ class Game
   end
 end
 
-    puts "~~~~~COMPUTER BOARD~~~~~"
-    return @computer_board.render
+
+  def computer_turn
+    if @player_board.valid_coordinate?(@coordinates)
+      @player_board.cells[@coordinates].fire_upon
     puts "~~~~~PLAYER BOARD~~~~~"
-    @player_board.render(ship_on_cell = true)
+    return @player_board.render
+    puts "~~~~~COMPUTER BOARD~~~~~"
+    @computer_board.render
     end
   end
-  
-    def computer_turn
-      if @player_board.valid_coordinate?(@coordinates)
-        @player_board.cells[@coordinates].fire_upon
-      puts "~~~~~PLAYER BOARD~~~~~"
-      return @player_board.render
-      puts "~~~~~COMPUTER BOARD~~~~~"
-      @computer_board.render(ship_on_cell = true)
-      end
-    end
 
   def mega_turn
     # loop through game.player_turn and game.computer_turn
@@ -120,8 +122,6 @@ end
     #if either OR are true, break the loop of turns?
 
 
-
-  end
 
 
 
@@ -146,4 +146,3 @@ battleship.player_turn
 # battleship.player_turn
 # battleship.computer_turn
 # battleship.mega_turn
-
