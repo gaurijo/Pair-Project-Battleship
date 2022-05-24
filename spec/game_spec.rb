@@ -25,8 +25,8 @@ RSpec.describe Game do
     expect(@player_board).to be_a(Board)
   end
 
-   xit "can contain a player ship" do
-    ship = Ship.new
+   it "can contain a player ship" do
+    ship = Ship.new("Cruiser", 3)
     expect(@cruiser_player).to be_a(Ship)
     expect(@submarine_player).to be_a(Ship)
   end
