@@ -49,16 +49,22 @@ class Game
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
+
     @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Cruiser (3 spaces):"
-    player_placement = gets.chomp.upcase
-    player_placement.split(" ")
-    @player_board.place(@cruiser_player, player_placement.split(" "))
+    player_placement = gets.chomp.upcase.split(" ")
+    @player_board.place(@cruiser_player, player_placement)
+    until @player_board.valid_placement?(@cruiser_player, player_placement) == true do
+    puts "Those are invalid coordinates. Please try again:"
+    player_placement = gets.chomp.upcase.split(" ")
+    end
+
+
     @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Submarine (2 spaces):"
-    player_placement = gets.chomp.upcase
-    player_placement.split(" ")
-    @player_board.place(@submarine_player, player_placement.split(" "))
+    player_placement = gets.chomp.upcase.split(" ")
+    # player_placement.split(" ")
+    @player_board.place(@submarine_player, player_placement)
     puts "~~~~~PLAYER BOARD~~~~~"
     @player_board.render(ship_on_cell = true)
   end

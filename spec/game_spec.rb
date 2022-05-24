@@ -2,7 +2,6 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/game'
-require './lib/player'
 
 RSpec.describe Game do
   before :each do
@@ -17,4 +16,5 @@ RSpec.describe Game do
   it "can contain a board" do
     expect(@board).to be_a(Board)
   end
+
 end
