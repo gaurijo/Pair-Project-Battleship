@@ -14,7 +14,6 @@ class Game
     @submarine_computer = Ship.new("Submarine", 2)
     @cruiser_player = Ship.new("Cruiser", 3)
     @submarine_player = Ship.new("Submarine", 2)
-    # @computer_player = Player.new(:computer)
   end
 
   def start_menu
