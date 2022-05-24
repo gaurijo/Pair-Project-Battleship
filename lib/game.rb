@@ -1,3 +1,5 @@
+
+
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
@@ -74,6 +76,7 @@ class Game
     player_turn_input = gets.chomp.upcase
     if @computer_board.valid_coordinate?(player_turn_input)
       @computer_board.cells[player_turn_input].fire_upon
+
       puts "~~~~~COMPUTER BOARD~~~~~"
       @computer_board.render
       puts "~~~~~PLAYER BOARD~~~~~"
@@ -82,6 +85,47 @@ class Game
   end
 end
 
+    puts "~~~~~COMPUTER BOARD~~~~~"
+    return @computer_board.render
+    puts "~~~~~PLAYER BOARD~~~~~"
+    @player_board.render(ship_on_cell = true)
+    end
+  end
+  
+    def computer_turn
+      if @player_board.valid_coordinate?(@coordinates)
+        @player_board.cells[@coordinates].fire_upon
+      puts "~~~~~PLAYER BOARD~~~~~"
+      return @player_board.render
+      puts "~~~~~COMPUTER BOARD~~~~~"
+      @computer_board.render(ship_on_cell = true)
+      end
+    end
+
+  def mega_turn
+    # loop through game.player_turn and game.computer_turn
+    until @cruiser_computer.sunk? && @submarine_computer.sunk? || @cruiser_player.sunk? &&
+    @submarine_player.sunk? do
+
+    end
+
+    if @cruiser_computer.sunk? && @submarine_computer.sunk?
+      puts "You win!"
+    else
+      puts "I win!"
+    end
+  end
+        #check that computer's ship is sunk
+    #check that player's ship is sunk
+    #if either OR are true, break the loop of turns?
+
+
+
+  end
+
+
+
+
     # A single turn consists of:
     # Displaying the boards
     # Player choosing a coordinate to fire on
@@ -89,6 +133,17 @@ end
     # Reporting the result of the Player’s shot
     # Reporting the result of the Computer’s shot
 
+
 battleship = Game.new
 battleship.start_menu
 battleship.player_turn
+
+
+
+
+# battleship = Game.new
+# battleship.start_menu
+# battleship.player_turn
+# battleship.computer_turn
+# battleship.mega_turn
+
