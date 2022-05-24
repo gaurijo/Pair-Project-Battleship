@@ -95,20 +95,6 @@ class Game
 
 
 
-
-
-
-
-    # computer_turn_input = ["C1"]
-      # if @player_board.valid_coordinate?(computer_turn_input)
-    # require 'pry'; binding.pry
-
-
-
-
-
-
-
     # A single turn consists of:
     # Displaying the boards - done
     # Player choosing a coordinate to fire on - done
