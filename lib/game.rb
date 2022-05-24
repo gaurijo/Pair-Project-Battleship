@@ -48,17 +48,6 @@ class Game
     @player_board.render(ship_on_cell = true)
   end
 
-  def computer_turn
-      if @player_board.valid_coordinate?(@coordinates)
-        @player_board.cells[@coordinates].fire_upon
-      puts "~~~~~PLAYER BOARD~~~~~"
-      return @player_board.render
-      puts "~~~~~COMPUTER BOARD~~~~~"
-      @computer_board.render(ship_on_cell = true)
-      end
-    end
-
-
   def player_turn
     puts "Enter the coordinate for your shot:"
     player_turn_input = gets.chomp.upcase
@@ -70,6 +59,16 @@ class Game
     @player_board.render(ship_on_cell = true)
     end
   end
+  
+    def computer_turn
+      if @player_board.valid_coordinate?(@coordinates)
+        @player_board.cells[@coordinates].fire_upon
+      puts "~~~~~PLAYER BOARD~~~~~"
+      return @player_board.render
+      puts "~~~~~COMPUTER BOARD~~~~~"
+      @computer_board.render(ship_on_cell = true)
+      end
+    end
 
   def mega_turn
     # loop through game.player_turn and game.computer_turn
