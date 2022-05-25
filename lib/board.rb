@@ -45,12 +45,9 @@ class Board
       return false
     end
     if letters.uniq.count == 1
-      #verifies we're all on a's, b's, c's, d's
       return numbers.each_cons(2).all? { |x, y| y.to_i == x.to_i + 1 }
-      #chekcing the #s, x = the 1st position, y = the 2nd pos)
     end
     if numbers.uniq.count == 1
-      #verify we're all on 1's, 2's, 3's, 4's
       return letters.each_cons(2).all? { |x, y| y.ord == x.ord + 1 }
     end
   end
