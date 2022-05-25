@@ -9,6 +9,8 @@ RSpec.describe Game do
     @board = Board.new
     @computer_board = Board.new
     @player_board = Board.new
+    @cruiser_player = Ship.new("Cruiser", 3)
+    @cruiser_computer = Ship.new("Cruiser", 3)
   end
 
   it "exists" do
@@ -25,14 +27,11 @@ RSpec.describe Game do
   end
 
    it "can contain a player ship" do
-    ship = Ship.new("Cruiser", 3)
     expect(@cruiser_player).to be_a(Ship)
-    expect(@submarine_player).to be_a(Ship)
   end
 
-  xit "can contain a computer ship" do
+  it "can contain a computer ship" do
     expect(@cruiser_computer).to be_a(Ship)
-    expect(@submarine_computer).to be_a(Ship)
   end
 
   xit "can take a turn" do
@@ -42,32 +41,10 @@ RSpec.describe Game do
   end
 
   xit "can determine a winner" do
+    @cruiser_computer.sunk?
+    @submarine_computer.sunk?
+    @computer_board.render(ship_on_cell = true)
 
-
-  end
-
-  it "can contain a player board" do
-    expect(@player_board).to be_a(Board)
-  end
-
-   it "can contain a player ship" do
-    ship = Ship.new("Cruiser", 3)
-    expect(@cruiser_player).to be_a(Ship)
-    expect(@submarine_player).to be_a(Ship)
-  end
-
-  xit "can contain a computer ship" do
-    expect(@cruiser_computer).to be_a(Ship)
-    expect(@submarine_computer).to be_a(Ship)
-  end
-
-  xit "can take a turn" do
-  end
-
-  xit "can keep track of hits, misses, and sinks and display them" do
-  end
-
-  xit "can determine a winner" do
 
   end
 

@@ -48,6 +48,7 @@ class Game
     @computer_board.place(@cruiser_computer, cells)
     cells = random_computer_placement(@submarine_computer)
     @computer_board.place(@submarine_computer, cells)
+    @computer_board.render(ship_on_cell = true)
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
@@ -85,13 +86,6 @@ class Game
   end
 end
 
-    puts "~~~~~COMPUTER BOARD~~~~~"
-    return @computer_board.render
-    puts "~~~~~PLAYER BOARD~~~~~"
-    @player_board.render(ship_on_cell = true)
-    end
-  end
-  
     def computer_turn
       if @player_board.valid_coordinate?(@coordinates)
         @player_board.cells[@coordinates].fire_upon
@@ -102,26 +96,36 @@ end
       end
     end
 
+
+
   def mega_turn
     # loop through game.player_turn and game.computer_turn
     until @cruiser_computer.sunk? && @submarine_computer.sunk? || @cruiser_player.sunk? &&
     @submarine_player.sunk? do
 
-    end
-
-    if @cruiser_computer.sunk? && @submarine_computer.sunk?
-      puts "You win!"
-    else
-      puts "I win!"
+    game.player_turn
+    game.computer_turn
     end
   end
+
+  def end_game
+    if @cruiser_computer.sunk? && @submarine_computer.sunk?
+      @computer_board.render(ship_on_cell = true)
+      puts "You win!"
+    elsif @cruiser_player.sunk? && @submarine_player.sunk?
+      @player_board.render(ship_on_cell = true)
+      puts "I win!"
+    end
+    start_menu
+  end
+
         #check that computer's ship is sunk
     #check that player's ship is sunk
     #if either OR are true, break the loop of turns?
 
 
 
-  end
+
 
 
 
@@ -134,9 +138,12 @@ end
     # Reporting the result of the Computer’s shot
 
 
-battleship = Game.new
-battleship.start_menu
-battleship.player_turn
+# battleship = Game.new
+# battleship.start_menu
+# battleship.start_game
+# battleship.player_turn
+# battleship.mega_turn
+# battleship.end_game
 
 
 
@@ -146,4 +153,3 @@ battleship.player_turn
 # battleship.player_turn
 # battleship.computer_turn
 # battleship.mega_turn
-
