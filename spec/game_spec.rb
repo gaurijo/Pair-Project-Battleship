@@ -12,6 +12,8 @@ RSpec.describe Game do
     @cruiser_player = Ship.new("Cruiser", 3)
     @submarine_player = Ship.new("Submarine", 2)
     @cruiser_computer = Ship.new("Cruiser", 3)
+    @cruiser_computer = Ship.new("Cruiser", 3)
+    @submarine_player = Ship.new("Submarine", 2)
     @submarine_computer = Ship.new("Submarine", 2)
   end
 
