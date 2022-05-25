@@ -11,6 +11,8 @@ RSpec.describe Game do
     @player_board = Board.new
     @cruiser_player = Ship.new("Cruiser", 3)
     @cruiser_computer = Ship.new("Cruiser", 3)
+    @submarine_player = Ship.new("Submarine", 2)
+    @submarine_computer = Ship.new("Submarine", 2)
   end
 
   it "exists" do
@@ -41,8 +43,8 @@ RSpec.describe Game do
   end
 
   xit "can determine a winner" do
-    @cruiser_computer.sunk?
-    @submarine_computer.sunk?
+    @cruiser_computer.sunk? = true
+    @submarine_computer.sunk? = true
     @computer_board.render(ship_on_cell = true)
 
 
