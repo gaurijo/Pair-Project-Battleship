@@ -46,12 +46,10 @@ class Game
     @computer_board.place(@cruiser_computer, cells)
     cells = random_computer_placement(@submarine_computer)
     @computer_board.place(@submarine_computer, cells)
-
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
-
-    @player_board.render(ship_on_cell = true)
+    puts @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Cruiser (3 spaces):"
     player_turn = false
     until player_turn == true
@@ -63,7 +61,7 @@ class Game
       player_turn = true
       end
     end
-    @player_board.render(ship_on_cell = true)
+    puts @player_board.render(ship_on_cell = true)
     puts "Enter the squares for the Submarine (2 spaces):"
     player_turn = false
     until player_turn == true
@@ -78,71 +76,58 @@ class Game
     end
   end
 
-
-
   def player_turn
     puts "Enter the coordinate for your shot:"
     player_turn_input = gets.chomp.upcase
-    if @computer_board.valid_coordinate?(player_turn_input)
-      @computer_board.cells[player_turn_input].fire_upon
-      puts "~~~~~COMPUTER BOARD~~~~~"
-      @computer_board.render
-      puts "~~~~~PLAYER BOARD~~~~~"
-      @player_board.render(ship_on_cell = true)
+    until @computer_board.valid_coordinate?(player_turn_input)
+      puts "Please enter a valid coordinate:"
+      player_turn_input = gets.chomp.upcase
     end
+      @computer_board.cells[player_turn_input].fire_upon
+    
+      puts "~~~~~COMPUTER BOARD~~~~~"
+      puts @computer_board.render
+      puts "~~~~~PLAYER BOARD~~~~~"
+      puts @player_board.render(ship_on_cell = true)
   end
-end
 
+  # A shot missed
+  # A shot hit a ship
+  # A shot sunk a ship
 
   def computer_turn
-    if @player_board.valid_coordinate?(@coordinates)
-      @player_board.cells[@coordinates].fire_upon
-    puts "~~~~~PLAYER BOARD~~~~~"
-    return @player_board.render
-    puts "~~~~~COMPUTER BOARD~~~~~"
-    @computer_board.render
+    fired_on_cell = @computer_board.cells.keys.sample(1)
+    until !@player_board.cells[fired_on_cell[0]].fired_upon?
+      fired_on_cell = @computer_board.cells.keys.sample(1)
     end
+    @player_board.cells[fired_on_cell[0]].fire_upon
+    puts "~~~~~COMPUTER BOARD~~~~~"
+    puts @computer_board.render(ship_on_cell = true)
+    puts "~~~~~PLAYER BOARD~~~~~"
+    puts @player_board.render(ship_on_cell = true)
   end
 
   def mega_turn
-    # loop through game.player_turn and game.computer_turn
-    until @cruiser_computer.sunk? && @submarine_computer.sunk? || @cruiser_player.sunk? &&
-    @submarine_player.sunk? do
-
+    until end_game
+    player_turn
+    computer_turn
     end
-
-    if @cruiser_computer.sunk? && @submarine_computer.sunk?
-      puts "You win!"
-    else
-      puts "I win!"
-    end
+    start_menu
   end
-        #check that computer's ship is sunk
-    #check that player's ship is sunk
-    #if either OR are true, break the loop of turns?
 
-
-
-
-
-
-    # A single turn consists of:
-    # Displaying the boards
-    # Player choosing a coordinate to fire on
-    # Computer choosing a coordinate to fire on
-    # Reporting the result of the Player’s shot
-    # Reporting the result of the Computer’s shot
-
+  def end_game
+   if @cruiser_computer.sunk? && @submarine_computer.sunk?
+     @computer_board.render(ship_on_cell = true)
+     puts "You win!"
+     true
+   elsif @cruiser_player.sunk? && @submarine_player.sunk?
+     @player_board.render(ship_on_cell = true)
+     puts "I win!"
+     true
+   end
+  end
+end
 
 battleship = Game.new
 battleship.start_menu
-battleship.player_turn
-
-
-
-
-# battleship = Game.new
-# battleship.start_menu
-# battleship.player_turn
-# battleship.computer_turn
-# battleship.mega_turn
+battleship.mega_turn
