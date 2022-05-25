@@ -139,7 +139,3 @@ class Game
    end
   end
 end
-
-battleship = Game.new
-battleship.start_menu
-battleship.mega_turn
