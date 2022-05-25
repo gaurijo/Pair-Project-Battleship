@@ -46,6 +46,7 @@ class Game
     @computer_board.place(@cruiser_computer, cells)
     cells = random_computer_placement(@submarine_computer)
     @computer_board.place(@submarine_computer, cells)
+    @computer_board.render(ship_on_cell = true)
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
@@ -90,10 +91,6 @@ class Game
       puts "~~~~~PLAYER BOARD~~~~~"
       puts @player_board.render(ship_on_cell = true)
   end
-
-  # A shot missed
-  # A shot hit a ship
-  # A shot sunk a ship
 
   def computer_turn
     fired_on_cell = @computer_board.cells.keys.sample(1)
