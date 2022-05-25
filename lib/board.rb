@@ -64,11 +64,9 @@ class Board
   end
 
   def render(ship_on_cell = false)
-    puts "  1 2 3 4 \nA #{@cells["A1"].render(ship_on_cell)} #{@cells["A2"].render(ship_on_cell)} #{@cells["A3"].render(ship_on_cell)} #{@cells["A4"].render(ship_on_cell)}"+
+    "  1 2 3 4 \nA #{@cells["A1"].render(ship_on_cell)} #{@cells["A2"].render(ship_on_cell)} #{@cells["A3"].render(ship_on_cell)} #{@cells["A4"].render(ship_on_cell)}"+
     "\nB #{@cells["B1"].render(ship_on_cell)} #{@cells["B2"].render(ship_on_cell)} #{@cells["B3"].render(ship_on_cell)} #{@cells["B4"].render(ship_on_cell)}"+
     "\nC #{@cells["C1"].render(ship_on_cell)} #{@cells["C2"].render(ship_on_cell)} #{@cells["C3"].render(ship_on_cell)} #{@cells["C4"].render(ship_on_cell)}"+
     "\nD #{@cells["D1"].render(ship_on_cell)} #{@cells["D2"].render(ship_on_cell)} #{@cells["D3"].render(ship_on_cell)} #{@cells["D4"].render(ship_on_cell)}"
   end
 end
-
-  
