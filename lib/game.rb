@@ -1,7 +1,6 @@
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
-require 'pry'
 
 class Game
 
@@ -15,10 +14,10 @@ class Game
   end
 
   def start_menu
-   puts "=========================================="
-   puts "         Welcome to BATTLESHIP"
-   puts "   Enter 'p' to play. Press 'q' to quit."
-   puts "=========================================="
+    puts "=========================================="
+    puts "         Welcome to BATTLESHIP"
+    puts "   Enter 'p' to play. Press 'q' to quit."
+    puts "=========================================="
     input = gets.chomp.downcase
     until input == 'p'|| input == 'q'
       puts "Please try again!"
@@ -26,10 +25,10 @@ class Game
       input = gets.chomp.downcase
     end
     if input == 'p'
-    start_game
-    else input == 'q'
+      start_game
+    elsif input == 'q'
     puts "Goodbye! We're sad to see you go :("
-     exit!
+      exit!
     end
   end
 
@@ -54,9 +53,9 @@ class Game
     puts "Enter the squares for the Cruiser (3 spaces):"
     player_turn = false
     until player_turn == true
-    player_placement = gets.chomp.upcase.split(" ")
+      player_placement = gets.chomp.upcase.split(" ")
       if @player_board.valid_placement?(@cruiser_player, player_placement) == false
-      puts "Those are invalid coordinates. Please try again:"
+        puts "Those are invalid coordinates. Please try again:"
     redo
       else @player_board.place(@cruiser_player, player_placement)
       player_turn = true
@@ -84,12 +83,28 @@ class Game
       puts "Please enter a valid coordinate:"
       player_turn_input = gets.chomp.upcase
     end
-      @computer_board.cells[player_turn_input].fire_upon
-    
-      puts "~~~~~COMPUTER BOARD~~~~~"
-      puts @computer_board.render
-      puts "~~~~~PLAYER BOARD~~~~~"
-      puts @player_board.render(ship_on_cell = true)
+    until !@computer_board.cells[player_turn_input].fired_upon?
+      puts "You've already fired on this coordinate. Please enter new coordinates to fire upon."
+      player_turn_input = gets.chomp.upcase
+    end
+    @computer_board.cells[player_turn_input].fire_upon
+    puts "~~~~~COMPUTER BOARD~~~~~"
+    puts "Your shot on #{@computer_board.cells[player_turn_input].coordinate} was a #{results_of_shot(@computer_board, player_turn_input)}."
+    puts @computer_board.render
+    puts "~~~~~PLAYER BOARD~~~~~"
+    puts @player_board.render(ship_on_cell = true)
+  end
+
+  def results_of_shot(board, turn_input)
+    word = ""
+    if board.cells[turn_input].render == "M"
+      word = "miss"
+    elsif board.cells[turn_input].render == "H"
+      word = "hit"
+    elsif board.cells[turn_input].render == "X"
+      word = "sunk"
+    end
+    word
   end
 
   def computer_turn
@@ -99,15 +114,16 @@ class Game
     end
     @player_board.cells[fired_on_cell[0]].fire_upon
     puts "~~~~~COMPUTER BOARD~~~~~"
-    puts @computer_board.render(ship_on_cell = true)
+    puts @computer_board.render
     puts "~~~~~PLAYER BOARD~~~~~"
+    puts "My shot on #{@player_board.cells[fired_on_cell[0]].coordinate} was a #{results_of_shot(@player_board, fired_on_cell[0])}."
     puts @player_board.render(ship_on_cell = true)
   end
 
   def mega_turn
     until end_game
-    player_turn
-    computer_turn
+      player_turn
+      computer_turn
     end
     start_menu
   end
@@ -115,16 +131,12 @@ class Game
   def end_game
    if @cruiser_computer.sunk? && @submarine_computer.sunk?
      @computer_board.render(ship_on_cell = true)
-     puts "You win!"
+     puts "**********You win**********!"
      true
    elsif @cruiser_player.sunk? && @submarine_player.sunk?
      @player_board.render(ship_on_cell = true)
-     puts "I win!"
+     puts "***********I win***********!"
      true
    end
   end
 end
-
-battleship = Game.new
-battleship.start_menu
-battleship.mega_turn
