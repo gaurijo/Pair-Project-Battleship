@@ -25,7 +25,7 @@ class Board
   end
 
   def valid_coordinate?(coordinates)
-    @cells.keys.include?(coordinates)
+      @cells.keys.include?(coordinates)
   end
 
   def valid_placement?(ship, coordinates)

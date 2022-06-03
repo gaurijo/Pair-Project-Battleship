@@ -27,7 +27,9 @@ class Game
     if input == 'p'
       start_game
     elsif input == 'q'
-    puts "Goodbye! We're sad to see you go :("
+      puts "Goodbye! We're sad to see you go :("
+    else input
+      puts "Please try again and enter 'p' to play or 'q' to quit."
       exit!
     end
   end
@@ -49,8 +51,10 @@ class Game
     puts "I have laid out my ships on the grid."
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
+    puts "Please pick your coordinates by choosing a letter, A-D, and a number '1-4'."
+    puts "Example 'A1' or 'D2'."
     puts @player_board.render(ship_on_cell = true)
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "Enter the squares for the Cruiser (3 coordinates):"
     player_turn = false
     until player_turn == true
       player_placement = gets.chomp.upcase.split(" ")
@@ -62,7 +66,7 @@ class Game
       end
     end
     puts @player_board.render(ship_on_cell = true)
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts "Enter the squares for the Submarine (2 coordinates):"
     player_turn = false
     until player_turn == true
     player_placement = gets.chomp.upcase.split(" ")
@@ -125,18 +129,34 @@ class Game
       player_turn
       computer_turn
     end
-    start_menu
   end
 
   def end_game
    if @cruiser_computer.sunk? && @submarine_computer.sunk?
      @computer_board.render(ship_on_cell = true)
-     puts "**********You win**********!"
+     puts "**********You win!**********"
+     play_game_again
      true
    elsif @cruiser_player.sunk? && @submarine_player.sunk?
      @player_board.render(ship_on_cell = true)
-     puts "***********I win***********!"
+     puts "***********I win!***********"
+     play_game_again
      true
    end
+  end
+
+  def reset_game
+    @computer_board = Board.new
+    @player_board = Board.new
+    @cruiser_computer = Ship.new("Cruiser", 3)
+    @submarine_computer = Ship.new("Submarine", 2)
+    @cruiser_player = Ship.new("Cruiser", 3)
+    @submarine_player = Ship.new("Submarine", 2)
+  end
+
+  def play_game_again
+    reset_game
+    start_menu
+    mega_turn
   end
 end
